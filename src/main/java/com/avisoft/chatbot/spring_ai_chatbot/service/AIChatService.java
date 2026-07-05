@@ -18,14 +18,15 @@ public class AIChatService {
         this.chatClient = chatClient;
     }
 
-    public String ask(ChatRequest request){
+    public Flux<String> stream(ChatRequest request){
 
-        String prompt = PromptTemplates.JAVA_MENTOR.formatted(request.message());
+        String prompt = PromptTemplates.JAVA_MENTOR
+                .formatted(request.message());
 
         try {
             return chatClient
                     .prompt(prompt)
-                    .call()
+                    .stream()
                     .content();
         }
         catch (Exception ex){
@@ -34,11 +35,4 @@ public class AIChatService {
         }
     }
 
-    //Streaming the Text
-//    public Flux<String> ask(ChatRequest request) {
-//        return chatClient
-//                .prompt(request.message())
-//                .stream()
-//                .content();
-//    }
 }
