@@ -3,6 +3,7 @@ package com.avisoft.chatbot.spring_ai_chatbot.controller;
 import com.avisoft.chatbot.spring_ai_chatbot.dto.ChatRequest;
 import com.avisoft.chatbot.spring_ai_chatbot.dto.ChatResponse;
 import com.avisoft.chatbot.spring_ai_chatbot.service.AIChatService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -22,7 +23,7 @@ public class ChatController {
     }
 
     @PostMapping
-    public ChatResponse chatResponse(@RequestBody ChatRequest chatRequest){
+    public ChatResponse chatResponse(@Valid @RequestBody ChatRequest chatRequest){
         String response = aiChatService.ask(chatRequest);
         return new ChatResponse(response);
     }
